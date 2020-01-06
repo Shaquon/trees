@@ -10,7 +10,8 @@ class File(MPTTModel):
         blank=True, 
         related_name='children'
     )
-    folder = models.BooleanField()
+    folder = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
 
     class MPTTMeta:
         order_insertion_by = ['name']
