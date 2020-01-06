@@ -51,7 +51,7 @@ def login_view(request):
 
 
 @login_required
-def add_file_view(request):
+def new_file_view(request):
     html = 'generic_form.html'
     if request.method == 'POST':
         form = AddFileForm(request.user, request.POST)
@@ -67,14 +67,15 @@ def add_file_view(request):
     form = AddFileForm(request.user)
     return render(request, html, {'form': form})
 
+
 @login_required
-def show_files(request):
+def tree_view(request):
     html = 'files.html'
-    user = request.user
+
     files = File.objects.filter(user=request.user)
     return render(request, html, {
         'files': files,
-        'user': user
+        'user': request.user
     })
 
 
@@ -89,3 +90,7 @@ def show_files(request):
 #         form.send_email()
 #         return super().form_valid(form)
 
+@login_required
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
