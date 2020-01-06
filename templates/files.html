@@ -1,8 +1,11 @@
 <body>
     <h1>Genres List</h1>
+
+    <a href="/newfile/">Add files here</a>
+
     {% load mptt_tags %}
     <ul>
-        {% recursetree genres %}
+        {% recursetree files %}
             <li>
                 {{ node.name }}
                 {% if not node.is_leaf_node %}
@@ -13,5 +16,6 @@
             </li>
         {% endrecursetree %}
     </ul>
+
 </body>
 </html>

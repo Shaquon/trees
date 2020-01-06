@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from dropbox.models import File
 from dropbox.forms import LoginForm, AddFileForm, NewUserForm
@@ -9,7 +10,7 @@ from mptt.admin import MPTTModelAdmin
 
 
 def register_user_view(request):
-    html = 'generic_form.htm'
+    html = 'generic_form.html'
     page = 'register'
     if request.method == "POST":
 
@@ -29,7 +30,7 @@ def register_user_view(request):
 
 
 def login_view(request):
-    html = 'generic_view.html'
+    html = 'generic_form.html'
     page = 'login'
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -44,6 +45,8 @@ def login_view(request):
             return HttpResponseRedirect(
                 request.GET.get('next', reverse('home'))
             )
+    form = LoginForm()
+    return render(request, html, {'form': form, 'page': page})
 
 
 # def tree_view(request):

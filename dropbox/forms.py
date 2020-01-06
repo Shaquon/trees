@@ -17,8 +17,10 @@ class LoginForm(forms.Form):
 
 
 class AddFileForm(forms.ModelForm):
-    model = File
-    fields = ['name', 'parent', 'folder']
+    class Meta:
+        model = File
+        fields = ['name', 'parent', 'folder']
+        
     def __init__(self, user, * args, **kwargs):
         super(AddFileForm, self).__init__(*args, **kwargs)
         self.fields['parent'].queryset = File.objects.filter(
